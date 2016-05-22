@@ -1,4 +1,5 @@
-%h1= @client.identifier.capitalize
+%h1
+  %a{href: "/sources/#{@client.identifier}"}=@client.identifier.capitalize
 %h2= @url.name
 
 .row
