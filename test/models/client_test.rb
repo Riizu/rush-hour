@@ -140,7 +140,7 @@ class ClientTest < Minitest::Test
         :client => Client.find(1) })
 
     client = Client.find(1)
-    assert_equal 2, client.find_matching_payloads("socialLogin 0").count
+    assert_equal 2, client.find_matching_payloads("socialLogin0").count
     assert_equal 0, client.find_matching_payloads("test").count
   end
 
