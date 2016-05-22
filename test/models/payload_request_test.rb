@@ -10,7 +10,7 @@ class PayloadRequestTest < Minitest::Test
     assert_equal "http://jumpstartlab.com/blog0", payload.url.name
     assert_equal "http://jumpstartlab.com0", payload.referrer.name
     assert_equal "GET 0", payload.request_type.verb
-    assert_equal "socialLogin 0", payload.event_name.name
+    assert_equal "socialLogin0", payload.event_name.name
     assert_equal "Mozilla 0", payload.user_agent.browser
     assert_equal "Macintosh 0", payload.user_agent.platform
     assert_equal "1920 0", payload.resolution.width

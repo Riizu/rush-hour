@@ -33,7 +33,7 @@ module TestHelpers
       referrer = Referrer.find_or_create_by({:name => "http://jumpstartlab.com#{i}"})
       request_type = RequestType.find_or_create_by({:verb => "GET #{i}"})
       requested_at = RequestedAt.find_or_create_by({time: "2013-02-16 21:38:28 -070#{i}"})
-      event_name = EventName.find_or_create_by({:name => "socialLogin #{i}"})
+      event_name = EventName.find_or_create_by({:name => "socialLogin#{i}"})
       user_agent = PayloadUserAgent.find_or_create_by({:browser => "Mozilla #{i}", :platform => "Macintosh #{i}"})
       responded_in = RespondedIn.find_or_create_by({time: i})
       parameter = Parameter.find_or_create_by({list: "#{i}"})
@@ -59,5 +59,11 @@ module TestHelpers
   def teardown
     DatabaseCleaner.clean
   end
+end
 
+Capybara.app = RushHour::Server
+
+class FeatureTest < Minitest::Test
+  include Capybara::DSL
+  include TestHelpers
 end
