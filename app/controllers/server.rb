@@ -6,12 +6,12 @@ module RushHour
 
     post '/sources' do
       client = Client.create({identifier: params["identifier"],root_url: params["rootUrl"]})
-      if client.errors.full_messages.join(",").include?("can't be blank")
+      if client.error_messages.include?("can't be blank")
         status 400
-        body client.errors.full_messages.join(", ")
-      elsif client.errors.full_messages.join(",").include?("has already been taken")
+        body client.error_messages
+      elsif client.error_messages.include?("has already been taken")
         status 403
-        body client.errors.full_messages.join(", ")
+        body client.error_messages
       else
         status 200
       end

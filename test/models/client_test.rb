@@ -148,7 +148,7 @@ class ClientTest < Minitest::Test
     create_payloads(1)
     client = Client.find(1)
 
-    assert_equal [4], client.breakdown_by_hour("socialLogin 0").keys
+    assert_equal 24, client.breakdown_by_hour("socialLogin 0").count
   end
 
   def test_it_can_breakdown_by_hour_with_two_payloads
@@ -168,8 +168,8 @@ class ClientTest < Minitest::Test
         :client => Client.find(1) })
 
     client = Client.find(1)
-    assert_equal [4, 5], client.breakdown_by_hour("socialLogin 0").keys
-    assert_equal [], client.breakdown_by_hour("socialLogin 6").keys
+    assert_equal Array, client.breakdown_by_hour("socialLogin 0")[0][1].class
+    assert_equal 24, client.breakdown_by_hour("socialLogin 6").count
   end
 
 end
