@@ -18,22 +18,23 @@ class Url < ActiveRecord::Base
   end
 
   def top_three_referrers
-    # change referrer_id to referrer to get group objects
     referrer_id_count = payload_requests.group("referrer_id").count
     sorted_id = referrer_id_count.sort_by { |k, v| -v }.first(3)
+    find_referrer_object(sorted_id)
+  end
 
-    sorted_id.map do |id|
-      Referrer.find(id[0])
-    end
+  def find_referrer_object(sorted_id)
+    sorted_id.map {|id| Referrer.find(id[0])}
   end
 
   def top_three_user_agents
     user_agent_id_count = payload_requests.group("user_agent_id").count
     sorted_id = user_agent_id_count.sort_by { |k, v| -v }.first(3)
+    find_user_agent_object(sorted_id)
+  end
 
-    sorted_id.map do |id|
-      PayloadUserAgent.find(id[0])
-    end
+  def find_user_agent_object(sorted_id)
+    sorted_id.map {|id| PayloadUserAgent.find(id[0])}
   end
 
   def max_response_time

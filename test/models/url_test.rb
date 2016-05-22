@@ -7,7 +7,7 @@ class UrlTest < Minitest::Test
     create_payloads(1)
     url = Url.find(1)
 
-    assert_equal ["GET 0"], url.associated_verbs
+    assert_equal ["GET 0"], url.associated_verbs.keys
   end
 
   def test_it_can_pull_three_most_popular_referrers
