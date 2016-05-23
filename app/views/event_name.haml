@@ -1,5 +1,7 @@
-%h2= @client.identifier
-%h3= @event_name
+.col-md-12
+  =haml :'/shared/_page_header', locals: {client: @client, primary: @client.identifier, secondary: @event_name}
 
-- @hour_breakdown.each do |key, value|
-  %p= "Hour Received:#{key}, Number of Events:#{value.count}"
+.col-md-12
+  %h4 Hour Breakdown
+  - @hour_breakdown.each do |key, value|
+    %p= "Hour Received:#{key}, Number of Events:#{value.count}"

@@ -1,0 +1,18 @@
+%html
+  %head
+    %title Rush Hour
+    %link{:href => "/css/bootstrap.min.css", :rel => 'stylesheet'}
+  %body
+    =haml :header
+    %img{src: "/images/background.jpg", style: "width: 100%; height: 92.8%; margin-top:-20px; z-index: 0; -webkit-filter:brightness(50%);"}
+
+    .title{style: "position: fixed; z-index: 10; top: 40%; left: 36%; color: white;"}
+      %h2{style: "text-align: center;"} Rush Hour Web Analytics
+      %h4{style: "text-align: center;"} Real-Time Web Analytics For Your Business
+      %form.form-inline{action: "/find", method: "post", style: "text-align:center;"}
+        .form-group
+          %input.form-control{type: "text", name: "target", placeholder: "Enter a Client Identifier"}
+        %button.btn.btn-primary Find!
+
+
+

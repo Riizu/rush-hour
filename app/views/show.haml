@@ -1,38 +1,25 @@
-%h2= @client.identifier
-%h4= @client.root_url
+.col-md-12
+  =haml :'/shared/_page_header', locals: {client: @client, primary: @client.identifier, secondary: @client.root_url}
 
-%h3 Client Analytics
+.col-md-12
+  =haml :'/shared/_times', locals: {average: average, max: max, min: min }
 
-%h4= "Average Response Time Across All Requests: #{@client.responded_ins.average_response_time}"
+.col-md-3
+  %h4 Request Types
+  - @client.most_frequent_request_type.each do |type|
+    %p= haml :'/shared/_array', locals: {item: type}
 
-%h4= "Maximum Response Time Across All Requests: #{@client.responded_ins.max_response_time}"
+.col-md-3
+  %h4 Browsers
+  - @client.user_agents.web_browser_breakdown.each do |platform, count|
+    %p= haml :'/shared/_hash', locals: {key: platform, value: count}
 
-%h4= "Minimum Response Time Across All Requests: #{@client.responded_ins.min_response_time}"
+.col-md-3
+  %h4 Platforms
+  - @client.user_agents.web_platform_breakdown.each do |platform, count|
+    %p= haml :'/shared/_hash', locals: {key: platform, value: count}
 
-%h4 Most Frequent Request Type:
-- @client.most_frequent_request_type.each do |type|
-  %p= haml :'/shared/_array', locals: {item: type}
-
-%h4 All HTTP Verbs Used:
-- @client.request_types.list_of_verbs_used.each do |verb|
-  %p= haml :'/shared/_array', locals: {item: verb}
-
-%h4 URLs Ordered by Request Amount:
-- @client.order_urls_by_count.each do |url|
-  %p= haml :'/shared/_array', locals: {item: url}
-
-%h4 Web Browser Breakdown
-- @client.user_agents.web_browser_breakdown.each do |browser, count|
-  %p= haml :'/shared/_hash', locals: {key: browser, value: count}
-
-%h4 Operating System Breakdown
-- @client.user_agents.web_platform_breakdown.each do |platform, count|
-  %p= haml :'/shared/_hash', locals: {key: platform, value: count}
-
-%h4 Screen Resolutions Across All Requests
-- @client.resolutions.resolutions_breakdown.each do |resolution, count|
-  %p= haml :'/shared/_hash', locals: {key: resolution, value: count}
-
-%h4 URLs for Client
-- @client.urls.uniq.each do |url|
-  %a{href: "/sources/#{@client.identifier}/urls/#{url.name.split("/")[3]}"}=url.name
+.col-md-3
+  %h4 Resolutions
+  - @client.resolutions.resolutions_breakdown.each do |resolution, count|
+    %p= haml :'/shared/_hash', locals: {key: resolution, value: count}

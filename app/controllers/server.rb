@@ -4,6 +4,14 @@ module RushHour
       haml :error
     end
 
+    get '/' do
+      haml :index, :layout => false
+    end
+
+    post '/find' do
+      redirect "/sources/#{params["target"]}"
+    end
+
     post '/sources' do
       client = Client.create({identifier: params["identifier"],root_url: params["rootUrl"]})
       if client.error_messages.include?("can't be blank")
@@ -28,7 +36,9 @@ module RushHour
       if Client.find_by(identifier: identifier)
         @client = Client.find_by(identifier: identifier)
         if @client.check_for_payloads
-          haml :show
+          haml :show, locals: {min: @client.responded_ins.min_response_time,
+                               max: @client.responded_ins.max_response_time,
+                               average: @client.responded_ins.average_response_time}
         else
           @display_error = "There is currently no payload data for this client."
           haml :error
@@ -44,7 +54,9 @@ module RushHour
       name = Url.get_name_by_relative_path(path)
       if @client.urls.find_by(name: name)
         @url = @client.urls.find_by(name: name)
-        haml :url
+        haml :url, locals: {min: @url.min_response_time,
+                            max: @url.max_response_time,
+                            average: @url.average_response_time}
       else
         @display_error = "Url not found for given client"
         haml :error

@@ -32,7 +32,7 @@ class Client < ActiveRecord::Base
   end
 
   def order_urls_by_count
-    payload_requests.group("url").count.to_a.map { |nested| nested[0].name }
+    payload_requests.group("url").count.to_a.map { |nested| nested[0] }
   end
 
   def check_for_payloads

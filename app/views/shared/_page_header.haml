@@ -1,0 +1,13 @@
+%span.h2
+  %a{href: "/sources/#{client.identifier}"}= primary.capitalize
+%span.small= secondary
+
+#client-urls
+  Urls:
+  - client.order_urls_by_count.each do |url|
+    %a{href: "/sources/#{client.identifier}/urls/#{url.name.split("/")[3]}"}="/#{url.name.split("/")[3]}"
+
+#client-events
+  Events:
+  - client.event_names.uniq.each do |event_name|
+    %a{href: "/sources/#{client.identifier}/events/#{event_name.name}"}="#{event_name.name}"
