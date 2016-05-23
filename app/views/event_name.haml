@@ -1,7 +1,18 @@
 .col-md-12
   =haml :'/shared/_page_header', locals: {client: @client, primary: @client.identifier, secondary: @event_name}
 
-.col-md-12
-  %h4 Hour Breakdown
-  - @hour_breakdown.each do |key, value|
-    %p= "Hour Received:#{key}, Number of Events:#{value.count}"
+.col-md-12{style: "margin-top:20px;"}
+  %table.table
+    %tr
+      %th Time
+      %th Number of Events
+    - @hour_breakdown.each do |key, value|
+      %tr
+        - if key < 12
+          %td= "#{key} AM"
+        - elsif key == 12
+          %td 12 PM
+        - else
+          %td= "#{key-12} PM"
+        %td= "#{value.count}"
+
