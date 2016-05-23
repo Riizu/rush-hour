@@ -75,7 +75,7 @@ class ClientTest < Minitest::Test
     create_payloads(1)
     client = Client.find(1)
 
-    assert_equal ["http://jumpstartlab.com/blog0"], client.order_urls_by_count
+    assert_equal "http://jumpstartlab.com/blog0", client.order_urls_by_count[0].name
   end
 
   def test_urls_get_returned_in_order_by_count_for_multiple
@@ -96,8 +96,8 @@ class ClientTest < Minitest::Test
 
     client = Client.find(1)
 
-    assert client.order_urls_by_count.include?("http://test.com")
-    assert client.order_urls_by_count.include?("http://jumpstartlab.com/blog0")
+    assert client.order_urls_by_count[1].name.include?("http://test.com")
+    assert client.order_urls_by_count[0].name.include?("http://jumpstartlab.com/blog0")
   end
 
   def test_it_calculates_response_analytics
