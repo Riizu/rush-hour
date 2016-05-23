@@ -6,7 +6,6 @@ class UserCanViewClientTest < FeatureTest
     create_payloads(1)
     visit '/sources/jumpstartlab0'
 
-    assert page.has_content?("Most Frequent Request Type:")
+    assert page.has_content?("Request Types")
   end
-
 end
